@@ -168,13 +168,16 @@ ADD CONSTRAINT `employee_id`
 -- Add constraints in table employee_hobby
 ALTER TABLE `employee_hobby` 
 ADD INDEX `employeetable_id_idx` (`fk_employee_id` ASC);
-ADD INDEX `hobby_id_idx` (`fk_hobby_id` ASC);
 ALTER TABLE `employee_hobby` 
 ADD CONSTRAINT `employeetable_id`
   FOREIGN KEY (`fk_employee_id`)
   REFERENCES `employee` (`id`)
   ON DELETE CASCADE
-  ON UPDATE CASCADE,
+  ON UPDATE CASCADE;
+
+ALTER TABLE `employee_hobby`
+ADD INDEX `hobby_id_idx` (`fk_hobby_id` ASC);
+ALTER TABLE `employee_hobby` 
 ADD CONSTRAINT `hobby_id`
   FOREIGN KEY (`fk_hobby_id`)
   REFERENCES `hobby` (`id`)
