@@ -1,5 +1,6 @@
 -- Create an employee database
-CREATE SCHEMA `employee` ;
+CREATE DATABASE `employee1` ;
+USE `employee1`;
 
 -- Create a hobby table 
 CREATE TABLE `hobby` (
@@ -23,7 +24,7 @@ CREATE TABLE `employee_salary` (
   `fk_employee_id` INT NOT NULL,
   `salary` DECIMAL NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `employee_id_idx` (`fk_employee_id` ASC) VISIBLE,
+  INDEX `employee_id_idx` (`fk_employee_id` ASC),
   CONSTRAINT `employee_id`
     FOREIGN KEY (`fk_employee_id`)
     REFERENCES `employee` (`id`)
@@ -36,8 +37,8 @@ CREATE TABLE `employee_hobby` (
   `fk_employee_id` INT NOT NULL,
   `fk_hobby_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `employeetable_id_idx` (`fk_employee_id` ASC) VISIBLE,
-  INDEX `hobby_id_idx` (`fk_hobby_id` ASC) VISIBLE,
+  INDEX `employeetable_id_idx` (`fk_employee_id` ASC),
+  INDEX `hobby_id_idx` (`fk_hobby_id` ASC),
   CONSTRAINT `employeetable_id`
     FOREIGN KEY (`fk_employee_id`)
     REFERENCES `employee` (`id`)
@@ -127,12 +128,12 @@ SELECT * FROM employee_salary;
 
 -- Drop foreign key and truncate table
 ALTER TABLE employee_salary DROP FOREIGN KEY employee_id;
-ALTER TABLE employee_salary DROP INDEX fk_employee_id_idx;
+ALTER TABLE employee_salary DROP INDEX employee_id_idx;
 SET FOREIGN_KEY_CHECKS=0;
 SET FOREIGN_KEY_CHECKS=1;
 
 ALTER TABLE employee_hobby DROP FOREIGN KEY employeetable_id;
-ALTER TABLE employee_hobby DROP INDEX employee_id_idx;
+ALTER TABLE employee_hobby DROP INDEX employeetable_id_idx;
 SET FOREIGN_KEY_CHECKS=0;
 SET FOREIGN_KEY_CHECKS=1;
 
@@ -154,16 +155,31 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 SELECT * FROM hobby;
 
--- Add constraint 
-ALTER TABLE `employee`.`employee_salary` 
-ADD INDEX `emplyee_id_idx` (`fk_employee_id` ASC) VISIBLE;
-ALTER TABLE `employee`.`employee_salary` 
-ADD CONSTRAINT `emplyee_id`
+-- Add constraints in table employee_salary
+ALTER TABLE `employee_salary` 
+ADD INDEX `employee_id_idx` (`fk_employee_id` ASC);
+ALTER TABLE `employee_salary` 
+ADD CONSTRAINT `employee_id`
   FOREIGN KEY (`fk_employee_id`)
-  REFERENCES `employee`.`employee` (`id`)
+  REFERENCES `employee` (`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
 
+-- Add constraints in table employee_hobby
+ALTER TABLE `employee_hobby` 
+ADD INDEX `employeetable_id_idx` (`fk_employee_id` ASC);
+ADD INDEX `hobby_id_idx` (`fk_hobby_id` ASC);
+ALTER TABLE `employee_hobby` 
+ADD CONSTRAINT `employeetable_id`
+  FOREIGN KEY (`fk_employee_id`)
+  REFERENCES `employee` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `hobby_id`
+  FOREIGN KEY (`fk_hobby_id`)
+  REFERENCES `hobby` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
 
 -- Insert values  
 INSERT INTO hobby(name) VALUES('Sports');
