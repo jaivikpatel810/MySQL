@@ -53,7 +53,7 @@ CREATE TABLE `employee_hobby` (
 -- Insert data into hobby table	
 INSERT INTO hobby(name) VALUES('Sports');
 INSERT INTO hobby(name) VALUES('Gaming');
-INSERT INTO hobby(name) VALUES('Readig');
+INSERT INTO hobby(name) VALUES('Reading');
 INSERT INTO hobby(name) VALUES('Dancing');
 INSERT INTO hobby(name) VALUES('Travelling'); 
 
@@ -82,7 +82,7 @@ SELECT * FROM employee_salary;
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(01, 01);
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(02, 02);
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(03, 03);
-INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(04, 05);
+INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(04, 04);
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(05, 05); 
 
 SELECT * FROM employee_hobby;
@@ -126,7 +126,7 @@ SELECT * FROM employee_hobby;
 TRUNCATE table employee_salary;
 SELECT * FROM employee_salary;
 
--- Drop foreign key and truncate table
+-- Drop foreign key and truncate employee_salary table
 ALTER TABLE employee_salary DROP FOREIGN KEY employee_id;
 ALTER TABLE employee_salary DROP INDEX employee_id_idx;
 SET FOREIGN_KEY_CHECKS=0;
@@ -143,7 +143,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 SELECT * FROM employee;
 
--- Drop foreign key and truncate table
+-- Drop foreign key and truncate employee_hobby table
 ALTER TABLE employee_hobby DROP FOREIGN KEY hobby_id;
 ALTER TABLE employee_hobby DROP INDEX hobby_id_idx;
 SET FOREIGN_KEY_CHECKS=0;
@@ -187,7 +187,7 @@ ADD CONSTRAINT `hobby_id`
 -- Insert values  
 INSERT INTO hobby(name) VALUES('Sports');
 INSERT INTO hobby(name) VALUES('Gaming');
-INSERT INTO hobby(name) VALUES('Readig');
+INSERT INTO hobby(name) VALUES('Reading');
 INSERT INTO hobby(name) VALUES('Dancing');
 INSERT INTO hobby(name) VALUES('Travelling');
 
@@ -196,6 +196,7 @@ INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES(
 INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES('Deep', 'Hadvani', 19, 9512629090 , 'Manharnagar-2 soc.');
 INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES('Sahil', 'Lakhani', 20, 9624741440, 'Panchratna soc');
 INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES('Anil', 'Patel', 23, 9325167595, 'Sundarvan soc');
+INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES('vishal', 'Prajapati', 22, 9712998381, 'Sidhharth Icon');
 
 INSERT INTO employee_salary(fk_employee_id, salary) VALUES(01 , 10000); 
 INSERT INTO employee_salary(fk_employee_id, salary) VALUES(02 , 15000); 
@@ -203,11 +204,11 @@ INSERT INTO employee_salary(fk_employee_id, salary) VALUES(03 , 20000);
 INSERT INTO employee_salary(fk_employee_id, salary) VALUES(04 , 25000); 
 INSERT INTO employee_salary(fk_employee_id, salary) VALUES(05 , 30000); 
 
-INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(01, 01);
+INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(01, 03);
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(02, 02);
-INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(03, 03);
+INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(03, 04);
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(04, 05);
-INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(05, 05); 
+INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(05, 01); 
 
 -- Create a select single query to get all employee name, hobby_name in single column
 SELECT first_name FROM employee
@@ -219,3 +220,60 @@ SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, es.salary
 FROM employee e
 INNER JOIN employee_salary es
 ON e.id = es.fk_employee_id;
+
+-- Update value of id column of hobby table
+UPDATE hobby
+SET id = '101'
+WHERE id = 1;
+
+UPDATE hobby
+SET id = '102'
+WHERE id = 2;
+
+UPDATE hobby
+SET id = '103'
+WHERE id = 3;
+
+UPDATE hobby
+SET id = '104'
+WHERE id = 4;
+
+UPDATE hobby
+SET id = '105'
+WHERE id = 5;
+
+-- Insert into employee_salary table 
+
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('2', '15000');
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('3', '20000');
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('3', '25000');
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('4', '30000');  
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('4', '32000'); 
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('4', '34000'); 
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('4', '35000'); 
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('5', '37000');  
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('5', '35000');  
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('5', '36000');  
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('5', '38000');
+INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('5', '35000');
+
+-- Insert into employee_hobby table
+INSERT INTO `employee_hobby` (`id`, `fk_employee_id`, `fk_hobby_id`) VALUES ('6', '2', '103'); 
+INSERT INTO `employee_hobby` (`id`, `fk_employee_id`, `fk_hobby_id`) VALUES ('7', '3', '101');
+INSERT INTO `employee_hobby` (`id`, `fk_employee_id`, `fk_hobby_id`) VALUES ('8', '5', '103'); 
+INSERT INTO `employee_hobby` (`id`, `fk_employee_id`, `fk_hobby_id`) VALUES ('9', '5', '102'); 
+INSERT INTO `employee_hobby` (`id`, `fk_employee_id`, `fk_hobby_id`) VALUES ('10', '1', '104');
+
+-- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - use subquery for hobby name)
+ 
+SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, SUM(es.salary) AS total_salary,
+(SELECT GROUP_CONCAT(DISTINCT h.name) 
+	FROM hobby AS h
+	INNER JOIN employee_hobby AS eh
+		ON h.id = eh.fk_hobby_id
+		AND e.id = eh.fk_employee_id) AS hobby_name
+FROM employee AS e  
+LEFT JOIN employee_salary AS es 
+	ON e.id = es.fk_employee_id
+GROUP BY e.id;
+
