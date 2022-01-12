@@ -1,7 +1,3 @@
--- Create an employee database
-CREATE DATABASE `employee1` ;
-USE `employee1`;
-
 -- Create a hobby table 
 CREATE TABLE `hobby` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -57,7 +53,7 @@ INSERT INTO hobby(name) VALUES('Reading');
 INSERT INTO hobby(name) VALUES('Dancing');
 INSERT INTO hobby(name) VALUES('Travelling'); 
 
-
+-- Get all hobby record
 SELECT * FROM hobby;
 
 -- Insert data into employee table
@@ -67,6 +63,7 @@ INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES(
 INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES('Sahil', 'Lakhani', 20, 9624741440, 'Panchratna soc');
 INSERT INTO employee(first_name, last_name, age, mobile_number, address) VALUES('Anil', 'Patel', 23, 9325167595, 'Sundarvan soc');
 
+-- Get all employee record
 SELECT * FROM employee;
 
 -- Insert data into employee_salary table
@@ -76,6 +73,7 @@ INSERT INTO employee_salary(fk_employee_id, salary) VALUES(03 , 20000);
 INSERT INTO employee_salary(fk_employee_id, salary) VALUES(04 , 25000); 
 INSERT INTO employee_salary(fk_employee_id, salary) VALUES(05 , 30000); 
 
+-- Get all employee_salary record
 SELECT * FROM employee_salary;
 
 -- Insert data into employee_hobby table
@@ -85,6 +83,7 @@ INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(03, 03);
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(04, 04);
 INSERT INTO employee_hobby(fk_employee_id, fk_hobby_id) VALUES(05, 05); 
 
+-- Get all employee_hobby record
 SELECT * FROM employee_hobby;
 
 -- Update data of all tables
@@ -121,9 +120,13 @@ WHERE id IN (1,2);
 
 -- Truncate all tables
 TRUNCATE table employee_hobby;
+
+-- Get all employee_hobby record
 SELECT * FROM employee_hobby;
 
 TRUNCATE table employee_salary;
+
+-- Get all employee_salary record
 SELECT * FROM employee_salary;
 
 -- Drop foreign key and truncate employee_salary table
@@ -141,6 +144,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE employee;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Get all employee record
 SELECT * FROM employee;
 
 -- Drop foreign key and truncate employee_hobby table
@@ -153,6 +157,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE hobby;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Get all hobby record
 SELECT * FROM hobby;
 
 -- Add constraints in table employee_salary
@@ -243,7 +248,6 @@ SET id = '105'
 WHERE id = 5;
 
 -- Insert into employee_salary table 
-
 INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('2', '15000');
 INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('3', '20000');
 INSERT INTO `employee_salary` (`fk_employee_id`, `salary`) VALUES ('3', '25000');
@@ -265,7 +269,6 @@ INSERT INTO `employee_hobby` (`id`, `fk_employee_id`, `fk_hobby_id`) VALUES ('9'
 INSERT INTO `employee_hobby` (`id`, `fk_employee_id`, `fk_hobby_id`) VALUES ('10', '1', '104');
 
 -- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - use subquery for hobby name)
- 
 SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, SUM(es.salary) AS total_salary,
 (SELECT GROUP_CONCAT(DISTINCT h.name) 
 	FROM hobby AS h
